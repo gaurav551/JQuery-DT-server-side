@@ -1,0 +1,31 @@
+public async Task<IActionResult> Index()
+        {
+           Thread t = new Thread(delegate(){
+               SeedData();
+           });
+           t.Start();
+
+            ViewBag.Time = d;
+            return View();
+        }
+        public Task SeedData()
+        {   
+           
+            if (!_context.Students.Any())
+            {
+                for (int i = 1; i <= 15000; i++)
+                {
+                    Student s = new Student();
+                    s.FirstName = "Gaurav" + i;
+                    s.LastName = "Acharya" + i;
+                    s.Class = "One" + i;
+                    s.PhoneNumber = "981491372" + i;
+                    s.Section = i.ToString();
+                    s.Address = "Jhapa" + i;
+                    _context.Students.Add(s);
+                     _context.SaveChangesAsync();
+                }
+            }
+            return Task.CompletedTask;
+           
+        }
